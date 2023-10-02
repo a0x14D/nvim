@@ -160,7 +160,7 @@ local plugins = {
     -- use "Pocco81/DAPInstall.nvim"
 
     -- Tabline
-    { "akinsho/bufferline.nvim", version = "*" },
+    { "akinsho/bufferline.nvim",             version = "*" },
     "tiagovla/scope.nvim",
 
     -- Statusline
@@ -170,7 +170,7 @@ local plugins = {
     "goolord/alpha-nvim",
 
     -- Indent
-    "lukas-reineke/indent-blankline.nvim",
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
     -- File Explorer
     "kyazdani42/nvim-tree.lua",
@@ -225,22 +225,22 @@ local plugins = {
 
     -- Motion
     "phaazon/hop.nvim",
-    -- use "jinh0/eyeliner.nvim"
-    -- "ggandor/leap.nvim",
-    -- {
-    --   "ggandor/flit.nvim",
-    --   config = function()
-    --     require("flit").setup {
-    --       keys = { f = "f", F = "F", t = "t", T = "T" },
-    --       -- A string like "nv", "nvo", "o", etc.
-    --       labeled_modes = "v",
-    --       multiline = true,
-    --       -- Like `leap`s similar argument (call-specific overrides).
-    --       -- E.g.: opts = { equivalence_classes = {} }
-    --       opts = {},
-    --     }
-    --   end,
-    -- },
+    --"jinh0/eyeliner.nvim"
+    "ggandor/leap.nvim",
+    {
+      "ggandor/flit.nvim",
+      config = function()
+        require("flit").setup {
+          keys = { f = "f", F = "F", t = "t", T = "T" },
+          -- A string like "nv", "nvo", "o", etc.
+          labeled_modes = "v",
+          multiline = true,
+          -- Like `leap`s similar argument (call-specific overrides).
+          -- E.g.: opts = { equivalence_classes = {} }
+          opts = {},
+        }
+      end,
+    },
 
     -- Keybinding
     "folke/which-key.nvim",
@@ -320,9 +320,9 @@ local plugins = {
     },
   },
   {
-  "aurum77/live-server.nvim",
+    "aurum77/live-server.nvim",
     run = function()
-      require"live_server.util".install()
+      require "live_server.util".install()
     end,
     cmd = { "LiveServer", "LiveServerStart", "LiveServerStop" },
   },
