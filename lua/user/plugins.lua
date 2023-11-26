@@ -73,6 +73,7 @@ local plugins = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-emoji",
     "hrsh7th/cmp-nvim-lua",
+    "uga-rosa/cmp-dictionary",
     -- use "hrsh7th/cmp-copilot"
     "zhenyangze/vim-bitoai",
   },

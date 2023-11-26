@@ -13,6 +13,11 @@ if not tabnine_status_ok then
   return
 end
 
+local dictionary_status_ok, dict = pcall(require, "cmp_dictionary")
+if not tabnine_status_ok then
+  return
+end
+
 local buffer_fts = {
   "markdown",
   "toml",
@@ -137,8 +142,8 @@ cmp.setup {
     format = function(entry, vim_item)
       -- Kind icons
       -- vim_item.kind = kind_icons[vim_item.kind]
-     vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-      
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+
       if entry.source.name == "cmp_tabnine" then
         vim_item.kind = icons.misc.Robot
         vim_item.kind_hl_group = "CmpItemKindTabnine"
@@ -165,20 +170,21 @@ cmp.setup {
 
       -- NOTE: order matters
       vim_item.menu = ({
-        nvim_lsp = "",
-        nvim_lua = "",
-        luasnip = "",
-        buffer = "",
+        nvim_lsp = "NvimLsp",
+        nvim_lua = "NvimLua",
+        luasnip = "Lunaship",
+        buffer = "Buff",
         path = "[Path]",
-        emoji = "",
+        emoji = "Emoji",
         copilot = "[Copilot]",
         cmp_tabnine = "[TN]",
+        dictionary = "[dictionary]",
       })[entry.source.name]
       return vim_item
     end,
   },
   sources = {
-    { name = "crates", group_index = 1 },
+    { name = "crates",   group_index = 1 },
     {
       name = "copilot",
       -- keyword_length = 0,
@@ -225,7 +231,7 @@ cmp.setup {
       group_index = 2,
     },
     { name = "nvim_lua", group_index = 2 },
-    { name = "luasnip", group_index = 2 },
+    { name = "luasnip",  group_index = 2 },
     {
       name = "buffer",
       group_index = 2,
@@ -235,10 +241,11 @@ cmp.setup {
         end
       end,
     },
-    { name = "cmp_tabnine", group_index = 2 },
-    { name = "path", group_index = 2 },
-    { name = "emoji", group_index = 2 },
+    { name = "cmp_tabnine",    group_index = 2 },
+    { name = "path",           group_index = 2 },
+    { name = "emoji",          group_index = 2 },
     { name = "lab.quick_data", keyword_length = 4, group_index = 2 },
+    { name = "dictionary",     keyword_length = 2, group_index = 2 },
   },
   sorting = {
     priority_weight = 2,
@@ -300,3 +307,21 @@ cmp.setup {
 --     end,
 --   },
 -- })
+
+dict.setup({
+  -- The following are default values.
+  exact = 2,
+  first_case_insensitive = false,
+  document = false,
+  document_command = "wn %s -over",
+  sqlite = false,
+  max_items = -1,
+  capacity = 5,
+  debug = false,
+})
+
+dict.switcher({
+  spelllang = {
+    en = "~/.config/nvim/spell/my.dict",
+  },
+})
