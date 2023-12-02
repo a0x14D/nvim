@@ -135,6 +135,7 @@ local plugins = {
     "brenoprata10/nvim-highlight-colors",
     -- Colorschemes
     "lunarvim/onedarker.nvim",
+    'navarasu/onedark.nvim',
     "lunarvim/darkplus.nvim",
     "folke/tokyonight.nvim",
     "ellisonleao/gruvbox.nvim",
@@ -225,23 +226,8 @@ local plugins = {
     "junegunn/vim-slash",
 
     -- Motion
-    "phaazon/hop.nvim",
-    --"jinh0/eyeliner.nvim"
-    "ggandor/leap.nvim",
-    {
-      "ggandor/flit.nvim",
-      config = function()
-        require("flit").setup {
-          keys = { f = "f", F = "F", t = "t", T = "T" },
-          -- A string like "nv", "nvo", "o", etc.
-          labeled_modes = "v",
-          multiline = true,
-          -- Like `leap`s similar argument (call-specific overrides).
-          -- E.g.: opts = { equivalence_classes = {} }
-          opts = {},
-        }
-      end,
-    },
+    { "folke/flash.nvim", event = "VeryLazy", },
+
 
     -- Keybinding
     "folke/which-key.nvim",
@@ -273,7 +259,6 @@ local plugins = {
     end,
   },
   --move lines
-  { "ur4ltz/move.nvim" },
 
   --multi cursor
   { "mg979/vim-visual-multi", branch = "master" },
