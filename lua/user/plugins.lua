@@ -312,6 +312,8 @@ local plugins = {
     end,
     cmd = { "LiveServer", "LiveServerStart", "LiveServerStop" },
   },
+  --notify
+  "folke/noice.nvim",
 }
 
 local opts = {
