@@ -31,13 +31,13 @@ local plugins = {
     -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
-    {
-      "ray-x/lsp_signature.nvim",
-      config = function()
-        require("lsp_signature").setup()
-      end,
-    },
+    "nvimtools/none-ls.nvim", -- for formatters and linters
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {},
+    config = function(_, opts) require 'lsp_signature'.setup(opts) end
   },
   {
     "SmiteshP/nvim-navic",
