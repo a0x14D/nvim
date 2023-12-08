@@ -69,3 +69,11 @@ vim.filetype.add {
     conf = "dosini",
   },
 }
+
+--coloscheme 
+local onedark = require ('onedark')
+
+onedark.setup {
+   style = 'deep',
+}
+vim.cmd "colorscheme onedark"
