@@ -8,7 +8,7 @@ if not snip_status_ok then
   return
 end
 
-local lspkind = require('lspkind')
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 require("luasnip/loaders/from_vscode").lazy_load()
 local compare = require "cmp.config.compare"
@@ -21,7 +21,7 @@ end
 vim.g.cmp_active = true
 
 cmp.setup {
-   enabled = function()
+  enabled = function()
     local buftype = vim.api.nvim_buf_get_option(0, "buftype")
     if buftype == "prompt" then
       return false
@@ -34,19 +34,19 @@ cmp.setup {
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
-mapping = cmp.mapping.preset.insert {
+  mapping = cmp.mapping.preset.insert {
     ["<CR>"] = cmp.mapping.confirm { select = false },
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-         elseif luasnip.jumpable(1) then
-           luasnip.jump(1)
-         elseif luasnip.expand_or_jumpable() then
-           luasnip.expand_or_jump()
-         elseif luasnip.expandable() then
-           luasnip.expand()
-         elseif check_backspace() then
-         cmp.complete()
+      elseif luasnip.jumpable(1) then
+        luasnip.jump(1)
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif luasnip.expandable() then
+        luasnip.expand()
+      elseif check_backspace() then
+        cmp.complete()
         fallback()
       else
         fallback()
@@ -69,8 +69,8 @@ mapping = cmp.mapping.preset.insert {
     }),
   },
   sources = {
-      { name = 'luasnip', group_index = 2 },
-        {
+    { name = 'luasnip',                 group_index = 2 },
+    {
       name = "buffer",
       group_index = 2,
       filter = function(entry, ctx)
@@ -78,27 +78,93 @@ mapping = cmp.mapping.preset.insert {
           return true
         end
       end,
-    },      { name = 'path' ,  group_index = 2 },
-      { name = 'nvim_lua', group_index = 2 },
-      { name = 'nvim_lsp', group_index = 2 },
-      { name = 'emoji', group_index = 2 },
-      { name = 'nerdfont', group_index = 2 },
     },
-   formatting = {
+    { name = 'path',                    group_index = 2 },
+    { name = 'nvim_lua',                group_index = 2 },
+    { name = 'nvim_lsp',                group_index = 2 },
+    { name = 'emoji',                   group_index = 2 },
+    { name = 'nerdfont',                group_index = 2 },
+    { name = 'nvim_lsp_signature_help', group_index = 2 },
+    {
+      name = "copilot",
+      keyword_length = 0,
+      max_item_count = 3,
+      group_index = 2,
+      trigger_characters = { { " ", "\n", ".", "(", ")", "[", "]", "{", "}", ":", ",", "'", '"', "=", "<", ">", "/", "\\" } },
+    },
+  },
+  formatting = {
     format = function(entry, vim_item)
-      if vim.tbl_contains({ 'path' }, entry.source.name) then
-        local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
-        if icon then
-          vim_item.kind = icon
-          vim_item.kind_hl_group = hl_group
-          return vim_item
-        end
-      end
-      return require('lspkind').cmp_format({ with_text = true })(entry, vim_item)
-    end
+      vim_item.kind = string.format("%s %s", require("lspkind").presets.default[vim_item.kind], vim_item.kind)
+      symbol_map = { Copilot = "", }
+      vim_item.menu = ({
+        buffer = "",
+        nvim_lsp = "",
+        nvim_lua = "",
+        luasnip = "",
+        emoji = "[]",
+        path = "[]",
+        copilot = "[Copilot]",
+        nvim_lsp_signature_help = "",
+        nerdfont = "",
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
+  --specifi copilot and cmp_tabnine icon
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      compare.offset,
+      compare.exact,
+      compare.score,
+      compare.recently_used,
+      compare.locality,
+      require "cmp-under-comparator".under, compare.kind,
+      compare.sort_text,
+      compare.length,
+      compare.order,
+    },
+  },
+  window = {
+    -- documentation = false,
+    documentation = {
+      border = "rounded",
+      winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
+    },
+    completion = {
+      border = "rounded",
+      winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
+    },
+  },
+  experimental = {
+    ghost_text = true,
+  },
+  confirm_opts = {
+    behavior = cmp.ConfirmBehavior.Replace,
+    select = false,
   },
 
 }
 
---lsp
-require('cmp_nvim_lsp').default_capabilities()
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "cmdline" },
+  },
+  window = {
+    completion = cmp.config.window.bordered {
+      border = "rounded",
+      winhighlight = "Normal:Normal,FloatBorder:CmpCompletionBorder,CursorLine:CmpCursorLine,Search:Search",
+      col_offset = -3,
+      side_padding = 1,
+    },
+  },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.kind = string.format("%s %s", require("lspkind").presets.default[vim_item.kind], vim_item.kind)
+      return vim_item
+    end,
+  }
+})
+
