@@ -1,3 +1,4 @@
+---@diagnostic disable: deprecated
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
   return
@@ -84,7 +85,7 @@ cmp.setup {
     { name = 'nvim_lsp',                group_index = 2 },
     { name = 'emoji',                   group_index = 2 },
     { name = 'nerdfont',                group_index = 2 },
-    { name = 'nvim_lsp_signature_help', group_index = 2 },
+    --{ name = 'nvim_lsp_signature_help', group_index = 2 },
     {
       name = "copilot",
       keyword_length = 0,
@@ -96,7 +97,6 @@ cmp.setup {
   formatting = {
     format = function(entry, vim_item)
       vim_item.kind = string.format("%s %s", require("lspkind").presets.default[vim_item.kind], vim_item.kind)
-      symbol_map = { Copilot = "", }
       vim_item.menu = ({
         buffer = "",
         nvim_lsp = "",
@@ -167,4 +167,3 @@ cmp.setup.cmdline(":", {
     end,
   }
 })
-

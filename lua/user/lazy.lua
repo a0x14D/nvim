@@ -78,6 +78,9 @@ local plugins = {
   --colorscheme
   'navarasu/onedark.nvim',
 
+  --starusline 
+  'nvim-lualine/lualine.nvim',
+
 
 }
 
