@@ -46,4 +46,3 @@ local config = {
   },
 }
 vim.diagnostic.config(config)
-

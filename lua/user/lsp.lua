@@ -19,3 +19,4 @@ lsp.setup {
     pyright = {},
   },
 }
+
