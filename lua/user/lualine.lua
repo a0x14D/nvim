@@ -6,8 +6,8 @@ end
 
 vim.api.nvim_set_hl(0, "SLError", { fg = "#ff0000", bg = "NONE" })
 vim.api.nvim_set_hl(0, "SLWarning", { fg = "#fffa00", bg = "NONE" })
-vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#ffc700", bg = "NONE" })
-vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#dbe4f5", bg = "NONE", bold = false })
+vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#fe9303", bg = "NONE", bold = true })
+vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#ffffff", bg = "NONE", bold = false })
 vim.api.nvim_set_hl(0, "SLProgress", { fg = "#ff00ff", bg = 'NONE' })
 vim.api.nvim_set_hl(0, "SLLocation", { fg = "#268aff", bg = "NONE" })
 vim.api.nvim_set_hl(0, "SLFT", { fg = "#00ffff", bg = "NONE" })
@@ -30,7 +30,7 @@ local branch = {
   "branch",
   icons_enabled = true,
   --icon = "%#SLGitIcon#" .. " " .. "%*" .. "%#SLBranchName#",
-  icon = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#",
+  icon = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#",
 
 }
 
@@ -41,24 +41,38 @@ local diff = {
   separator = "%#SLSeparator#" .. "| " .. "%*",
 }
 
-local progress = {
-  "progress",
-  fmt = function(str)
-    -- return "▊"
-    return hl_str("", "SLSep") .. hl_str("%P/%L", "SLProgress") .. hl_str(" ", "SLSep")
-    -- return "  "
+local lsp_name = {
+  function()
+    local msg = "No Active Lsp"
+    local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+    local clients = vim.lsp.get_clients()
+    if next(clients) == nil then
+      return msg
+    end
+    for _, client in ipairs(clients) do
+      local filetypes = client.config.filetypes
+      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+        return client.name
+      end
+    end
+    return msg
   end,
-  -- color = "SLProgress",
-  padding = 0,
+  icon = " LSP:",
+  color = { fg = "#ffffff", gui = "bold" },
 }
 
+local filename = {
+  "filename",
+  file_status = true,
+  color = { fg = "#7400ff", gui = "bold" },
+}
 
 
 lualine.setup {
   options = {
     icons_enabled = true,
     theme = 'onedark',
-    component_separators = { left = '', right = '' },
+    component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
     disabled_filetypes = {
       statusline = {},
@@ -75,9 +89,9 @@ lualine.setup {
   },
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { branch, 'filename', diff },
+    lualine_b = { branch, filename, diff },
     lualine_c = {},
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_x = { lsp_name, 'filetype' },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }
   },
