@@ -96,7 +96,16 @@ local plugins = {
 }
 
 
-
+local opts = {
+  change_detection = {
+    -- automatically check for config file changes and reload the ui
+    enabled = true,
+    notify = true, -- get a notification when changes are found
+  },
+  ui = {
+    border = "rounded",
+  }
+}
 
 
 require("lazy").setup(plugins, opts)

@@ -6,24 +6,16 @@ end
 
 vim.api.nvim_set_hl(0, "SLError", { fg = "#ff0000", bg = "NONE" })
 vim.api.nvim_set_hl(0, "SLWarning", { fg = "#fffa00", bg = "NONE" })
-vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#fe9303", bg = "NONE", bold = true })
-vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#ffffff", bg = "NONE", bold = false })
+vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#fe9303", bg = "NONE" })
+vim.api.nvim_set_hl(0, "SLBranchName", { fg = "#ffffff", bg = "NONE", bold = true })
 vim.api.nvim_set_hl(0, "SLProgress", { fg = "#ff00ff", bg = 'NONE' })
 vim.api.nvim_set_hl(0, "SLLocation", { fg = "#268aff", bg = "NONE" })
 vim.api.nvim_set_hl(0, "SLFT", { fg = "#00ffff", bg = "NONE" })
 vim.api.nvim_set_hl(0, "SLIndent", { fg = "", bg = "NONE" })
-vim.api.nvim_set_hl(0, "SLLSP", { fg = "#ccd1da", bg = "NONE" })
-vim.api.nvim_set_hl(0, "SLSep", { fg = "#757575", bg = "NONE" })
-vim.api.nvim_set_hl(0, "SLFG", { fg = "#abb2bf", bg = "NONE" })
-vim.api.nvim_set_hl(0, "SLSeparator", { fg = "#d0d2d7", bg = "NONE", italic = true })
 vim.api.nvim_set_hl(0, "SLError", { fg = "#ff0000", bg = "NONE" })
 vim.api.nvim_set_hl(0, "SLWarning", { fg = "#fffa00", bg = "NONE" })
 vim.api.nvim_set_hl(0, "SLCopilot", { fg = "#6cc600", bg = "NONE" })
 
-
-local hl_str = function(str, hl)
-  return "%#" .. hl .. "#" .. str .. "%*"
-end
 
 local icons = require "user.icons"
 local branch = {
@@ -31,6 +23,7 @@ local branch = {
   icons_enabled = true,
   --icon = "%#SLGitIcon#" .. " " .. "%*" .. "%#SLBranchName#",
   icon = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#",
+
 
 }
 
@@ -57,14 +50,33 @@ local lsp_name = {
     end
     return msg
   end,
-  icon = " LSP:",
-  color = { fg = "#ffffff", gui = "bold" },
+  --icon = " LSP:",
+  color = { fg = "#33ff17", gui = "bold" },
 }
 
 local filename = {
   "filename",
-  file_status = true,
-  color = { fg = "#7400ff", gui = "bold" },
+  color = { fg = "#70d7e2", gui = "bold" },
+}
+
+local filetype = {
+  "filetype",
+  colored = true,
+  color = { fg = "#EEC759" }
+
+}
+
+
+local progress = {
+  function()
+    local current_line = vim.fn.line(".")
+    local total_lines = vim.fn.line("$")
+
+    local result, _ = math.modf((current_line / total_lines) * 100)
+
+    return " " .. result .. "%% "
+  end,
+  color = { fg = "#45FFCA", gui = "bold" },
 }
 
 
@@ -89,10 +101,10 @@ lualine.setup {
   },
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { branch, filename, diff },
-    lualine_c = {},
-    lualine_x = { lsp_name, 'filetype' },
-    lualine_y = { 'progress' },
+    lualine_b = { branch },
+    lualine_c = { filename, diff },
+    lualine_x = { lsp_name, filetype },
+    lualine_y = { progress },
     lualine_z = { 'location' }
   },
   inactive_sections = {
