@@ -9,7 +9,14 @@ if not snip_status_ok then
   return
 end
 
+local icons = require "user.icons"
+local kind_icons = icons.kind
+
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+vim.api.nvim_set_hl(0, "CmpItemKindCodeium", { fg = "#00a0ff" })
+vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
+vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
+vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
 
 require("luasnip/loaders/from_vscode").lazy_load()
 local compare = require "cmp.config.compare"
@@ -70,7 +77,7 @@ cmp.setup {
     }),
   },
   sources = {
-    { name = 'luasnip',                 group_index = 2 },
+    { name = 'luasnip',  group_index = 2 },
     {
       name = "buffer",
       group_index = 2,
@@ -80,11 +87,11 @@ cmp.setup {
         end
       end,
     },
-    { name = 'path',                    group_index = 2 },
-    { name = 'nvim_lua',                group_index = 2 },
-    { name = 'nvim_lsp',                group_index = 2 },
-    { name = 'emoji',                   group_index = 2 },
-    { name = 'nerdfont',                group_index = 2 },
+    { name = 'path',     group_index = 2 },
+    { name = 'nvim_lua', group_index = 2 },
+    { name = 'nvim_lsp', group_index = 2 },
+    { name = 'emoji',    group_index = 2 },
+    { name = 'nerdfont', group_index = 2 },
     --{ name = 'nvim_lsp_signature_help', group_index = 2 },
     {
       name = "copilot",
@@ -93,20 +100,22 @@ cmp.setup {
       group_index = 2,
       trigger_characters = { { " ", "\n", ".", "(", ")", "[", "]", "{", "}", ":", ",", "'", '"', "=", "<", ">", "/", "\\" } },
     },
+    { name = "codeium", keyword_length = 3, group_index = 2 },
   },
   formatting = {
     format = function(entry, vim_item)
-      vim_item.kind = string.format("%s %s", require("lspkind").presets.default[vim_item.kind], vim_item.kind)
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
         buffer = "",
         nvim_lsp = "",
         nvim_lua = "",
         luasnip = "",
-        emoji = "[]",
-        path = "[]",
-        copilot = "[Copilot]",
+        emoji = "",
+        path = "",
+        copilot = "",
         nvim_lsp_signature_help = "",
         nerdfont = "",
+        codeium = "",
       })[entry.source.name]
       return vim_item
     end,
