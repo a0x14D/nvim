@@ -38,6 +38,7 @@ local plugins = {
   "nvim-telescope/telescope-media-files.nvim",
   "tom-anders/telescope-vim-bookmarks.nvim",
   "j-hui/fidget.nvim",
+   'stevearc/dressing.nvim',
 
   --autocompletion
   'hrsh7th/cmp-nvim-lsp',
