@@ -38,7 +38,15 @@ local plugins = {
   "nvim-telescope/telescope-media-files.nvim",
   "tom-anders/telescope-vim-bookmarks.nvim",
   "j-hui/fidget.nvim",
-   'stevearc/dressing.nvim',
+  'stevearc/dressing.nvim',
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+  },
 
   --autocompletion
   'hrsh7th/cmp-nvim-lsp',
@@ -81,8 +89,8 @@ local plugins = {
   {
     "Exafunction/codeium.nvim",
     config = function()
-        require("codeium").setup({
-        })
+      require("codeium").setup({
+      })
     end,
   },
 
@@ -120,7 +128,7 @@ local opts = {
     -- install missing plugins on startup. This doesn't increase startup time.
     missing = true,
     -- try to load one of these colorschemes when starting an installation during startup
-    colorscheme = { "rose-pine" },
+    colorscheme = { "onedark" },
   }
 }
 
