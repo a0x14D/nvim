@@ -20,17 +20,17 @@ vim.api.nvim_set_hl(0, "SLCopilot", { fg = "#6cc600", bg = "NONE" })
 local icons = require "user.icons"
 local branch = {
   "branch",
-  icons_enabled = true,
-  --icon = "%#SLGitIcon#" .. " " .. "%*" .. "%#SLBranchName#",
-  icon = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#",
-
-
+  icon = "",
+  color = { fg = "#fffa00", gui = "bold" },
+  branch_name_formatter = function(branch_name)
+    return branch_name:gsub("%(.*%)", ""):gsub("^%s+", ""):gsub("%s+$", "")
+  end,
 }
 
 local diff = {
   "diff",
   colored = true,
-  symbols = { added = icons.git.Add .. " ", modified = icons.git.Mod .. " ", removed = icons.git.Remove .. " " }, -- changes diff symbols
+  symbols = { added = icons.git.LineAdded .. " ", modified = icons.git.LineModified .. " ", removed = icons.git.LineRemoved .. " " }, -- changes diff symbols
   separator = "%#SLSeparator#" .. "| " .. "%*",
 }
 
@@ -83,7 +83,7 @@ local progress = {
 lualine.setup {
   options = {
     icons_enabled = true,
-    theme = 'onedark',
+    theme = 'onedark_dark',
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
     disabled_filetypes = {

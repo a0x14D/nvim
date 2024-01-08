@@ -19,7 +19,7 @@ local plugins = {
   'junnplus/lsp-setup.nvim',
   'williamboman/mason.nvim',           -- optional
   'williamboman/mason-lspconfig.nvim', -- optional
-  { "folke/neodev.nvim",   opts = {} },
+  { "folke/neodev.nvim",                   opts = {} },
 
   --ui
   {
@@ -47,6 +47,12 @@ local plugins = {
       vim.o.timeoutlen = 300
     end,
   },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+  },
+  "RRethy/vim-illuminate",
 
   --autocompletion
   'hrsh7th/cmp-nvim-lsp',
@@ -107,6 +113,10 @@ local plugins = {
     end
   },
   "uga-rosa/ccc.nvim",
+  {
+    "olimorris/onedarkpro.nvim",
+    priority = 1000 -- Ensure it loads first
+  },
 
   --starusline
   'nvim-lualine/lualine.nvim',
