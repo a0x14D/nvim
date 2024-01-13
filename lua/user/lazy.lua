@@ -53,6 +53,23 @@ local plugins = {
     run = ":TSUpdate",
   },
   "RRethy/vim-illuminate",
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "BufEnter",
+    cmd = "Gitsigns",
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    event = "VeryLazy",
+  },
 
   --autocompletion
   'hrsh7th/cmp-nvim-lsp',
@@ -117,11 +134,13 @@ local plugins = {
     "olimorris/onedarkpro.nvim",
     priority = 1000 -- Ensure it loads first
   },
-
+  {
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+ },
   --starusline
-  'nvim-lualine/lualine.nvim',
-
-
+   'nvim-lualine/lualine.nvim',
 }
 
 

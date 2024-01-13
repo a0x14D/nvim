@@ -101,7 +101,8 @@ keymap("v", "p", '"_dP', opts)
 -- keymap("n", "<c-h>", "<cmd>nohlsearch<cr>", opts)
 -- NOTE: the fact that tab and ctrl-i are the same is stupid
 -- keymap("n", "<TAB>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
+-- keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
+ keymap("n", "Q", ":lua require('bufdelete').bufdelete(0, false)<cr>", opts)
 --keymap("n", "<C-t>", "<cmd>lua vim.lsp.buf.document_symbol()<cr>", opts)
 -- keymap("n", "<C-s>", "<cmd>vsplit<cr>", opts)
 
