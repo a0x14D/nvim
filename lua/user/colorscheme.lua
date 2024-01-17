@@ -1,36 +1,16 @@
--- local colorscheme = "darkplus"
+local M = {
+  -- "LunarVim/primer.nvim",
+  -- "LunarVim/darkplus.nvim",
+  -- lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  -- priority = 1000, -- make sure to load this before all the other start plugins
+   'navarasu/onedark.nvim',
+  -- "folke/tokyonight.nvim",
+}
 
--- local colorscheme = "tokyonight-storm"
--- local colorscheme = "rose-pine-main"
--- local colorscheme = "hackthebox"
-local colorscheme = "onedark"
-
-vim.g.onedarker_italic_keywords = false
-
-vim.g.onedarker_italic_functions = false
-
-vim.g.onedarker_italic_comments = true
-
-vim.g.onedarker_italic_loops = false
-
-vim.g.onedarker_italic_conditionals = false
-
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  -- vim.notify("colorscheme " .. colorscheme .. " not found!")
-  return
+function M.config()
+  -- vim.cmd.colorscheme "primer_dark"
+  -- vim.cmd.colorscheme "darkplus"
+  vim.cmd.colorscheme "onedark"
 end
 
-local onedark = require("onedark")
-
-onedark.setup {
-  style = "darker",
-  code_style = {
-    comments = 'italic',
-    keywords = 'italic',
-    functions = 'italic',
-    strings = 'none',
-    variables = 'none'
-  },
-
-}
+return M
