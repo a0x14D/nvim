@@ -25,6 +25,10 @@ M.config = function()
     },
   }
 
+  vim.api.nvim_set_hl( 0, "GitSignsAdd", { fg = "#00ff00" } )
+  vim.api.nvim_set_hl( 0, "GitSignsChange", { fg = "#ffff00" } )
+  vim.api.nvim_set_hl( 0, "GitSignsDelete", { fg = "#ff0000" } )
+
   require("gitsigns").setup {
     signs = {
       add = {
@@ -35,19 +39,19 @@ M.config = function()
       },
       change = {
         hl = "GitSignsChange",
-        text = icons.ui.BoldLineDashedMiddle,
+        text = icons.ui.BoldLineMiddle,
         numhl = "GitSignsChangeNr",
         linehl = "GitSignsChangeLn",
       },
       delete = {
         hl = "GitSignsDelete",
-        text = icons.ui.TriangleShortArrowRight,
+        text = icons.ui.Triangle,
         numhl = "GitSignsDeleteNr",
         linehl = "GitSignsDeleteLn",
       },
       topdelete = {
         hl = "GitSignsDelete",
-        text = icons.ui.TriangleShortArrowRight,
+        text = icons.ui.Triangle,
         numhl = "GitSignsDeleteNr",
         linehl = "GitSignsDeleteLn",
       },

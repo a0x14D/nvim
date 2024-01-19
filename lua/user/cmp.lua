@@ -35,39 +35,33 @@ local M = {
     {
       "hrsh7th/cmp-nvim-lua",
     },
-    {
-      "roobert/tailwindcss-colorizer-cmp.nvim",
-    },
   },
   event = "InsertEnter",
 }
 
 function M.config()
-  require("tailwindcss-colorizer-cmp").setup({
-    color_square_width = 2,
-  })
 
   vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
   vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
   vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
   vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
 
-  local cmp = require("cmp")
-  local luasnip = require("luasnip")
+  local cmp = require "cmp"
+  local luasnip = require "luasnip"
   require("luasnip/loaders/from_vscode").lazy_load()
-  local compare = require("cmp.config.compare")
+  local compare = require "cmp.config.compare"
 
   local check_backspace = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
   end
 
   vim.g.cmp_active = true
 
-  local icons = require("user.icons")
-  local types = require("cmp.types")
+  local icons = require "user.icons"
+  local types = require "cmp.types"
 
-  cmp.setup({
+  cmp.setup {
     enabled = function()
       local buftype = vim.api.nvim_buf_get_option(0, "buftype")
       if buftype == "prompt" then
@@ -81,8 +75,8 @@ function M.config()
         luasnip.lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
-    mapping = cmp.mapping.preset.insert({
-      ["<CR>"] = cmp.mapping.confirm({ select = false }),
+    mapping = cmp.mapping.preset.insert {
+      ["<CR>"] = cmp.mapping.confirm { select = false },
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -102,7 +96,19 @@ function M.config()
         "i",
         "s",
       }),
-    }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end, {
+        "i",
+        "s",
+      }),
+    },
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
@@ -299,7 +305,7 @@ function M.config()
     experimental = {
       ghost_text = false,
     },
-  })
+  }
 
   pcall(function()
     -- local function on_confirm_done(...)
@@ -309,27 +315,27 @@ function M.config()
     -- require("cmp").event:on("confirm_done", on_confirm_done)
   end)
 
---cmp cmdline 
+  --cmp cmdline
   cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = "cmdline" },
-  },
-  window = {
-    completion = cmp.config.window.bordered {
-      border = "rounded",
-      winhighlight = "Normal:Normal,FloatBorder:CmpCompletionBorder,CursorLine:CmpCursorLine,Search:Search",
-      col_offset = -3,
-      side_padding = 1,
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "cmdline" },
     },
-  },
-  formatting = {
-    format = function(entry, vim_item)
+    window = {
+      completion = cmp.config.window.bordered {
+        border = "rounded",
+        winhighlight = "Normal:Normal,FloatBorder:CmpCompletionBorder,CursorLine:CmpCursorLine,Search:Search",
+        col_offset = -3,
+        side_padding = 1,
+      },
+    },
+    formatting = {
+      format = function(entry, vim_item)
         vim_item.kind = icons.kind[vim_item.kind]
-      return vim_item
-    end,
-  }
-})
+        return vim_item
+      end,
+    },
+  })
 end
 
 return M

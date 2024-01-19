@@ -27,6 +27,16 @@ keymap("v", ">", ">gv", opts)
 
 keymap("x", "p", [["_dP]])
 
+-- Move lines
+keymap("n", "<m-n>", ":m .+1<CR>==", opts)
+keymap("n", "<m-p>", ":m .-2<CR>==", opts)
+keymap("v", "<m-n>", ":m .+1<CR>==", opts)
+keymap("v", "<m-p>", ":m .-2<CR>==", opts)
+
+-- Insert --
+-- Press jk fast to enter
+keymap("i", "jk", "<ESC>", opts)
+
 vim.cmd [[:amenu 10.100 mousemenu.Goto\ Definition <cmd>lua vim.lsp.buf.definition()<CR>]]
 vim.cmd [[:amenu 10.110 mousemenu.References <cmd>lua vim.lsp.buf.references()<CR>]]
 -- vim.cmd [[:amenu 10.120 mousemenu.-sep- *]]
@@ -43,5 +53,4 @@ keymap({ "n", "x" }, "j", "gj", opts)
 keymap({ "n", "x" }, "k", "gk", opts)
 keymap("n", "<leader>w", ":lua vim.wo.wrap = not vim.wo.wrap<CR>", opts)
 
-
-vim.api.nvim_set_keymap('t', '<C-;>', '<C-\\><C-n>', opts)
+vim.api.nvim_set_keymap("t", "<C-;>", "<C-\\><C-n>", opts)

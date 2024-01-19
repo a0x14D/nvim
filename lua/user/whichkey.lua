@@ -25,6 +25,14 @@ function M.config()
       l = { "<cmd>+tabmove<cr>", "Move Right" },
     },
     T = { name = "Treesitter" },
+ s = {
+    name = "Session",
+    s = { "<cmd>SessionSave<cr>", "Save" },
+    r = { "<cmd>SessionRestore<cr>", "Restore" },
+    x = { "<cmd>SessionDelete<cr>", "Delete" },
+    f = { "<cmd>Autosession search<cr>", "Find" },
+    d = { "<cmd>Autosession delete<cr>", "Find Delete" },
+  },
   }
 
   local which_key = require "which-key"

@@ -3,6 +3,7 @@ local M = {
   dependencies = { { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true } },
   lazy = true,
   cmd = "Telescope",
+  event = "VeryLazy",
 }
 
 function M.config()
@@ -85,7 +86,7 @@ function M.config()
         "--line-number",
         "--column",
         "--smart-case",
-        "--hidden",
+        --"--hidden",
         "--glob=!.git/",
       },
 
@@ -165,10 +166,10 @@ function M.config()
     },
     extensions = {
       fzf = {
-        fuzzy = true, -- false will only do exact matching
+        fuzzy = true,                   -- false will only do exact matching
         override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+        override_file_sorter = true,    -- override the file sorter
+        case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
       },
     },
   }

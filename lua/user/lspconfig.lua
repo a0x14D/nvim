@@ -4,7 +4,7 @@ local M = {
   dependencies = {
     {
       "folke/neodev.nvim",
-      'junnplus/lsp-setup.nvim',
+      "junnplus/lsp-setup.nvim",
     },
   },
 }
@@ -14,7 +14,7 @@ function M.config()
     library = { plugins = { "neotest" }, types = true },
   }
 
-   local wk = require "which-key"
+  local wk = require "which-key"
   wk.register {
     ["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     ["<leader>lf"] = {
@@ -43,9 +43,9 @@ function M.config()
       active = true,
       values = {
         { name = "DiagnosticSignError", text = icons.diagnostics.Error },
-        { name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
-        { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
-        { name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
+        { name = "DiagnosticSignWarn",  text = icons.diagnostics.Warning },
+        { name = "DiagnosticSignHint",  text = icons.diagnostics.Hint },
+        { name = "DiagnosticSignInfo",  text = icons.diagnostics.Information },
       },
     },
     virtual_text = false,
@@ -72,22 +72,22 @@ function M.config()
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
   require("lspconfig.ui.windows").default_options.border = "rounded"
 
-  local lsp = require("lsp-setup")
+  local lsp = require "lsp-setup"
   --lsp servers
-lsp.setup {
-  servers = {
-    lua_ls = {},
-    bashls = {},
-    clangd = {},
-    cssls = {},
-    emmet_ls = {},
-    html = {},
-    tsserver = {},
-    marksman = {},
-    pyright = {},
-  },
-}
-
+  lsp.setup {
+    servers = {
+      lua_ls = {},
+      bashls = {},
+      clangd = {},
+      cssls = {},
+      emmet_ls = {},
+      html = {},
+      tsserver = {},
+      marksman = {},
+      pyright = {},
+      lua_ls = {},
+    },
+  }
 end
 
 return M

@@ -42,6 +42,11 @@ function M.config()
     end,
   }
 
+  local copilot = {
+    "copilot",
+    show_colors = true,
+  }
+
   require("lualine").setup {
     options = {
       -- component_separators = { left = "", right = "" },
@@ -65,7 +70,7 @@ function M.config()
       lualine_b = { "branch" },
       lualine_c = { diagnostics },
       -- lualine_x = { diff, "copilot", filetype },
-      lualine_x = { "copilot", filetype },
+      lualine_x = { copilot, filetype },
       lualine_y = { "progress" },
       lualine_z = {},
     },
