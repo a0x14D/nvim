@@ -103,6 +103,7 @@ function M.config()
           ["j"] = actions.move_selection_next,
           ["k"] = actions.move_selection_previous,
           ["q"] = actions.close,
+          ["l"] = actions.select_default,
         },
       },
     },
