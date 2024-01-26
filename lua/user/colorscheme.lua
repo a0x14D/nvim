@@ -14,7 +14,7 @@ local M = {
 function M.config()
   -- vim.cmd.colorscheme "primer_dark"
   -- vim.cmd.colorscheme "darkplus"
-  vim.cmd.colorscheme "tokyonight-moon"
+  vim.cmd.colorscheme "tokyonight-night"
 end
 
 return M
