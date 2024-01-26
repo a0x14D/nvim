@@ -66,6 +66,7 @@ function M.config()
 
   local icons = require "user.icons"
   local types = require "cmp.types"
+  local kind_icons = icons.kind
 
   cmp.setup {
     enabled = function()
@@ -116,9 +117,10 @@ function M.config()
       }),
     },
     formatting = {
-      fields = { "kind", "abbr", "menu" },
+      fields = { "abbr", "kind", "menu" },
       format = function(entry, vim_item)
-        vim_item.kind = icons.kind[vim_item.kind]
+        -- vim_item.kind = icons.kind[vim_item.kind]
+        vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
         vim_item.menu = ({
           nvim_lsp = "",
           nvim_lua = "",
@@ -126,10 +128,11 @@ function M.config()
           buffer = "",
           path = "",
           emoji = "",
-          copilot = "",
+          copilot = "[Copilot]",
           nvim_lsp_signature_help = "",
           nerdfont = "",
-          codeium = "",
+          codeium = "[Codeium]",
+          cmp_tabnine = "[Tabnine]",
         })[entry.source.name]
 
         if vim.tbl_contains({ "nvim_lsp" }, entry.source.name) then
@@ -243,11 +246,16 @@ function M.config()
           vim_item.kind_hl_group = "CmpItemKindEmoji"
         end
 
+        if entry.source.name == "codeium" then
+          vim_item.kind = icons.misc.CircuitBoard
+          vim_item.kind_hl_group = "CmpItemKindCodeium"
+        end
+
         return vim_item
       end,
     },
     sources = {
-      { name = "copilot" },
+      { name = "copilot",    keyword_length = 0, group_index = 2 },
       {
         name = "nvim_lsp",
         entry_filter = function(entry, ctx)
@@ -278,8 +286,7 @@ function M.config()
       { name = "crates" },
       { name = "tmux" },
       { name = "nerdfont" },
-      { name = "copilot" },
-      { name = "codeium" },
+      { name = "codeium",    keyword_length = 3 },
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
@@ -310,6 +317,24 @@ function M.config()
     },
     experimental = {
       ghost_text = false,
+    },
+    sorting = {
+      priority_weight = 2,
+      comparators = {
+        require("copilot_cmp.comparators").prioritize,
+
+        -- Below is the default comparitor list and order for nvim-cmp
+        cmp.config.compare.offset,
+        -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+        cmp.config.compare.exact,
+        cmp.config.compare.score,
+        cmp.config.compare.recently_used,
+        cmp.config.compare.locality,
+        cmp.config.compare.kind,
+        cmp.config.compare.sort_text,
+        cmp.config.compare.length,
+        cmp.config.compare.order,
+      },
     },
   }
 
