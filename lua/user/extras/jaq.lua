@@ -21,6 +21,7 @@ function M.config()
         cpp = "g++ % -o $fileBase && ./$fileBase",
         go = "go run %",
         sh = "sh %",
+        php = "php -S localhost:8000 -t .",
       },
 
       -- Uses internal commands such as 'source' and 'luafile'
