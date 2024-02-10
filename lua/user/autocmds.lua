@@ -75,18 +75,3 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
   end,
 })
 
---autosave afer leave insert mode
-vim.cmd [[
-  augroup autosave
-    autocmd!
-    autocmd InsertLeave * silent! wall
-  augroup END
-]]
-
---autosave textchange
-vim.cmd [[
-  augroup autosave
-    autocmd!
-    autocmd TextChanged,TextChangedI * silent! wall
-  augroup END
-]]

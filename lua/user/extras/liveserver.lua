@@ -3,14 +3,13 @@ local M = {
   build = "npm install --prefix server",
   event = "VeryLazy",
   dependencies = {
-      "aurum77/live-server.nvim",
-     cmd = { "LiveServer", "LiveServerStart", "LiveServerStop" },
+    'barrett-ruth/live-server.nvim',
+    build = 'pnpm add -g live-server',
   }
 }
 
 function M.config()
-   require"live_server.util".install()
-
+  require('live-server').setup()
 end
 
 return M
