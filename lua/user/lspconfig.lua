@@ -76,7 +76,6 @@ function M.config()
   --lsp servers
   lsp.setup {
     servers = {
-      lua_ls = {},
       bashls = {},
       clangd = {},
       cssls = {},

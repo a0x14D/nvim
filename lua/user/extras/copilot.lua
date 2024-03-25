@@ -30,12 +30,12 @@ function M.config()
       },
     },
     filetypes = {
-      markdown = true,
-      help = false,
-      gitcommit = false,
-      gitrebase = false,
-      cvs = false,
-      ["."] = false,
+      -- markdown = true,
+      -- help = false,
+      -- gitcommit = false,
+      -- gitrebase = false,
+      -- cvs = false,
+      ["*"] = true,
     },
     copilot_node_command = "node",
   }

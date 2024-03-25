@@ -1,16 +1,15 @@
 local M = {
   "lethc/bracey.vim",
   build = "npm install --prefix server",
-  event = "VeryLazy",
   dependencies = {
-      "aurum77/live-server.nvim",
-     cmd = { "LiveServer", "LiveServerStart", "LiveServerStop" },
+    'barrett-ruth/live-server.nvim',
+    'ray-x/web-tools.nvim',
   }
 }
 
 function M.config()
-   require"live_server.util".install()
-
+  require('live-server').setup()
+  require('web-tools').setup()
 end
 
 return M

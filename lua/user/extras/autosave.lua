@@ -1,15 +1,14 @@
-local M = {
-  "aidenlangley/auto-save.nvim",
-  event = { "BufReadPre" },
-  opts = {
-    events = { "InsertLeave", "BufLeave" },
-    silent = true,
-    exclude_ft = { "neo-tree" },
-  },
-}
+--text leave auto save 
+vim.cmd([[
+ autocmd InsertLeave * silent! write
+]])
 
-function M.config()
-  require("auto-save").setup {}
-end
+--text change auto save
+vim.cmd [[
+ augroup AutoSave
+    autocmd!
+    autocmd TextChanged * silent! write
+    autocmd TextChangedI * echo "File saved automatically"
+ augroup END
+]]
 
-return M

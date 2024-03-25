@@ -52,7 +52,7 @@ function M.config()
       enabled = true,
 
       -- Priority list of preferred vim.select implementations
-      backend = { "nui", "telescope", "fzf_lua", "fzf", "builtin" },
+      backend = { "builtin", "nui", "telescope", "fzf_lua", "fzf" },
 
       -- Trim trailing `:` from prompt
       trim_prompt = true,
