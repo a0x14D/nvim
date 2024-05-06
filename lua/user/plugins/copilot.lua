@@ -4,7 +4,6 @@ return {
 	event = "InsertEnter",
 	dependencies = {
 		"zbirenbaum/copilot-cmp",
-		"zhenyangze/vim-bitoai",
 	},
 	fix_pairs = true,
 
