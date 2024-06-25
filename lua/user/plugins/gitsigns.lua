@@ -31,36 +31,11 @@ return {
 
 		require("gitsigns").setup({
 			signs = {
-				add = {
-					hl = "GitSignsAdd",
-					text = icons.ui.BoldLineMiddle,
-					numhl = "GitSignsAddNr",
-					linehl = "GitSignsAddLn",
-				},
-				change = {
-					hl = "GitSignsChange",
-					text = icons.ui.BoldLineMiddle,
-					numhl = "GitSignsChangeNr",
-					linehl = "GitSignsChangeLn",
-				},
-				delete = {
-					hl = "GitSignsDelete",
-					text = icons.ui.Triangle,
-					numhl = "GitSignsDeleteNr",
-					linehl = "GitSignsDeleteLn",
-				},
-				topdelete = {
-					hl = "GitSignsDelete",
-					text = icons.ui.Triangle,
-					numhl = "GitSignsDeleteNr",
-					linehl = "GitSignsDeleteLn",
-				},
-				changedelete = {
-					hl = "GitSignsChange",
-					text = icons.ui.BoldLineMiddle,
-					numhl = "GitSignsChangeNr",
-					linehl = "GitSignsChangeLn",
-				},
+				add = { text = icons.ui.BoldLineMiddle },
+				change = { text = icons.ui.BoldLineMiddle },
+				delete = { text = icons.ui.Triangle },
+				topdelete = { text = icons.ui.Triangle },
+				changedelete = { text = icons.ui.BoldLineMiddle },
 			},
 			watch_gitdir = {
 				interval = 1000,

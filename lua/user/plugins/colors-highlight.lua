@@ -3,6 +3,10 @@ return {
 	event = "VeryLazy",
 
 	config = function()
-		require("nvim-highlight-colors").setup()
+		require("nvim-highlight-colors").setup({
+			enable_tailwind = true,
+			render = "background",
+			enable_named_colors = true,
+		})
 	end,
 }
